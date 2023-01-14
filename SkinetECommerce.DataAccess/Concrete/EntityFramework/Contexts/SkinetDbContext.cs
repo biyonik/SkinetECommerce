@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using SkinetECommerce.Core.Entities.Concrete;
-
-namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
+﻿namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
 
 public class SkinetDbContext: DbContext
 {

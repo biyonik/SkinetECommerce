@@ -15,4 +15,22 @@ public class ProductsController : BaseController
     {
         return Ok();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Add()
+    {
+        return Ok();
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id)
+    {
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Remove(Guid id)
+    {
+        return Ok();
+    }
 }

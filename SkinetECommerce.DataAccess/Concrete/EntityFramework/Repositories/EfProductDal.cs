@@ -1,6 +1,8 @@
-﻿namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Repositories;
+﻿using SkinetECommerce.DataAccess.Abstract;
 
-public class EfProductDal
+namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Repositories;
+
+public class EfProductDal: EfEntityRepositoryBase<Product, SkinetDbContext>, IProductDal
 {
     
 }
