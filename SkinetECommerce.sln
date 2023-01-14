@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.WebAPI", "SkinetECommerce.WebAPI\SkinetECommerce.WebAPI.csproj", "{B1B7E9A2-4ABC-4F3C-93C2-5FCCAA2B3949}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.Core", "SkinetECommerce.Core\SkinetECommerce.Core.csproj", "{D89E78E5-8D8E-460D-883C-513839DD3CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.DataAccess", "SkinetECommerce.DataAccess\SkinetECommerce.DataAccess.csproj", "{4D9174FA-B9A0-4588-82ED-81396CB24384}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{B1B7E9A2-4ABC-4F3C-93C2-5FCCAA2B3949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B7E9A2-4ABC-4F3C-93C2-5FCCAA2B3949}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B7E9A2-4ABC-4F3C-93C2-5FCCAA2B3949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D89E78E5-8D8E-460D-883C-513839DD3CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D89E78E5-8D8E-460D-883C-513839DD3CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D89E78E5-8D8E-460D-883C-513839DD3CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D89E78E5-8D8E-460D-883C-513839DD3CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
