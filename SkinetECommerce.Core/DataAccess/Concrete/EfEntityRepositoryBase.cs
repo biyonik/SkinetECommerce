@@ -6,9 +6,9 @@ using SkinetECommerce.Core.Entities.Abstact;
 
 namespace SkinetECommerce.Core.DataAccess.Concrete;
 
-public class EfEntityRepositoryBase<TEntity, TContext>: IEntityRepository<TEntity>
-    where TEntity: class, IEntity, new()
-    where TContext: DbContext, new()
+public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
+    where TEntity : class, IEntity, new()
+    where TContext : DbContext, new()
 {
     public TEntity? Get(Expression<Func<TEntity, bool>> filter)
     {
@@ -25,27 +25,30 @@ public class EfEntityRepositoryBase<TEntity, TContext>: IEntityRepository<TEntit
             : context.Set<TEntity>().Where(filter).ToList();
     }
 
-    public void Add(TEntity entity)
+    public bool Add(TEntity entity)
     {
         var context = EntryEntity(entity, out var addedEntity);
         addedEntity.State = EntityState.Added;
-        context.SaveChanges();
+        var result = context.SaveChanges();
+        return result > 0;
     }
 
-    public void Update(TEntity entity)
+    public bool Update(TEntity entity)
     {
         var context = EntryEntity(entity, out var updatedEntity);
         updatedEntity.State = EntityState.Modified;
-        context.SaveChanges();
+        var result = context.SaveChanges();
+        return result > 0;
     }
 
-    public void Remove(TEntity entity)
+    public bool Remove(TEntity entity)
     {
         var context = EntryEntity(entity, out var removedEntity);
         removedEntity.State = EntityState.Deleted;
-        context.SaveChanges();
+        var result = context.SaveChanges();
+        return result > 0;
     }
-    
+
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter)
     {
         await using var context = new TContext();
@@ -56,34 +59,37 @@ public class EfEntityRepositoryBase<TEntity, TContext>: IEntityRepository<TEntit
     public async Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null)
     {
         await using var context = new TContext();
-        return filter == null 
+        return filter == null
             ? await context.Set<TEntity>().ToListAsync()
             : await context.Set<TEntity>().Where(filter).ToListAsync();
     }
 
-    public async Task AddAsync(TEntity entity)
+    public async Task<bool> AddAsync(TEntity entity)
     {
         await using var context = new TContext();
         await context.AddAsync(entity);
-        await context.SaveChangesAsync();
+        var result = await context.SaveChangesAsync();
+        return result > 0;
     }
 
-    public async Task UpdateAsync(TEntity entity)
+    public async Task<bool> UpdateAsync(TEntity entity)
     {
         await using var context = new TContext();
         var updatedEntity = context.Entry(entity);
         updatedEntity.State = EntityState.Modified;
-        await context.SaveChangesAsync();
+        var result = await context.SaveChangesAsync();
+        return result > 0;
     }
 
-    public async Task RemoveAsync(TEntity entity)
+    public async Task<bool> RemoveAsync(TEntity entity)
     {
         await using var context = new TContext();
         var deletedEntity = context.Entry(entity);
         deletedEntity.State = EntityState.Deleted;
-        await context.SaveChangesAsync();
+        var result = await context.SaveChangesAsync();
+        return result > 0;
     }
-    
+
     private static TContext EntryEntity(TEntity entity, out EntityEntry<TEntity> baseEntity)
     {
         using var context = new TContext();

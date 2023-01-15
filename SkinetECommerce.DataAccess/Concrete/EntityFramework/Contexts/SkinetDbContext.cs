@@ -3,6 +3,9 @@
 public class SkinetDbContext: DbContext
 {
     public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<ProductBrand> ProductBrands { get; set; }
+    public DbSet<ProductType> ProductTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

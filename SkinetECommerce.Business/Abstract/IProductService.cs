@@ -1,6 +1,8 @@
-﻿namespace SkinetECommerce.Business.Abstract;
+﻿using SkinetECommerce.Core.Entities.Concrete;
 
-public interface IProductService
+namespace SkinetECommerce.Business.Abstract;
+
+public interface IProductService: IGenericService<Product>
 {
     
 }
