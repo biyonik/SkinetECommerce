@@ -17,7 +17,7 @@ public class EfEntityRepositoryBase<TEntity, TContext>: IEntityRepository<TEntit
         return entity;
     }
 
-    public ICollection<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)
+    public IReadOnlyCollection<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)
     {
         using var context = new TContext();
         return filter == null
@@ -53,7 +53,7 @@ public class EfEntityRepositoryBase<TEntity, TContext>: IEntityRepository<TEntit
         return entity;
     }
 
-    public async Task<ICollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null)
+    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null)
     {
         await using var context = new TContext();
         return filter == null 

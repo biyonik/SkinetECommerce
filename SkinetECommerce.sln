@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.Core", "Ski
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.DataAccess", "SkinetECommerce.DataAccess\SkinetECommerce.DataAccess.csproj", "{4D9174FA-B9A0-4588-82ED-81396CB24384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinetECommerce.Business", "SkinetECommerce.Business\SkinetECommerce.Business.csproj", "{804ABF5D-ABF6-43E4-9EE1-D4472CF9DCA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D9174FA-B9A0-4588-82ED-81396CB24384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804ABF5D-ABF6-43E4-9EE1-D4472CF9DCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804ABF5D-ABF6-43E4-9EE1-D4472CF9DCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804ABF5D-ABF6-43E4-9EE1-D4472CF9DCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804ABF5D-ABF6-43E4-9EE1-D4472CF9DCA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
