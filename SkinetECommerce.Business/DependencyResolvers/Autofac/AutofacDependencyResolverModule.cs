@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using SkinetECommerce.Business.Abstract;
+using SkinetECommerce.Business.Concrete;
 using SkinetECommerce.Core.DataAccess.Abstract;
 using SkinetECommerce.Core.DataAccess.Concrete;
 using SkinetECommerce.DataAccess.Abstract;
@@ -14,6 +16,10 @@ public class AutofacDependencyResolverModule: Module
             .As(typeof(IEntityRepository<>))
             .InstancePerDependency();
 
+        // Repositories
         builder.RegisterType<EfProductDal>().As<IProductDal>();
+
+        // Services - Managers
+        builder.RegisterType<ProductManager>().As<IProductService>();
     }
 }

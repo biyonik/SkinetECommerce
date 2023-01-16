@@ -1,9 +1,10 @@
-﻿namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
+﻿using System.Reflection;
+
+namespace SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
 
 public class SkinetDbContext: DbContext
 {
     public DbSet<Product> Products { get; set; }
-    public DbSet<Category> Categories { get; set; }
     public DbSet<ProductBrand> ProductBrands { get; set; }
     public DbSet<ProductType> ProductTypes { get; set; }
 
@@ -16,5 +17,11 @@ public class SkinetDbContext: DbContext
             .AddJsonFile($"appsettings.{envName}.json", optional: false)
             .Build();
         optionsBuilder.UseNpgsql(configurationRoot.GetConnectionString("DefaultConnection"));
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

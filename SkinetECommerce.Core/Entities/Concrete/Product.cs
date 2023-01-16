@@ -15,7 +15,4 @@ public class Product: IEntity
     
     public ProductBrand ProductBrand { get; set; }
     public Guid ProductBrandId { get; set; }
-
-    public Category Category { get; set; }
-    public Guid CategoryId { get; set; }
 }
