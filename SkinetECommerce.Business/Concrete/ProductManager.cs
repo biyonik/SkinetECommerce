@@ -1,4 +1,5 @@
-﻿using SkinetECommerce.Business.Abstract;
+﻿using System.Linq.Expressions;
+using SkinetECommerce.Business.Abstract;
 using SkinetECommerce.Business.Constants;
 using SkinetECommerce.Core.Entities.Concrete;
 using SkinetECommerce.Core.Utilities.ResultInfrastructure.Abstract;
@@ -16,16 +17,16 @@ public class ProductManager: IProductService
     {
         _productDal = productDal;
     }
-    public async Task<IDataResult<Product>> GetByIdAsync(Guid Id)
+    public async Task<IDataResult<Product>> GetByIdAsync(Guid Id, params Expression<Func<Product, object>>[]? includeParams)
     {
-        var product = await _productDal.GetAsync(x => x.Id == Id);
+        var product = await _productDal.GetAsync(x => x.Id == Id, includeParams);
         if (product == null) return new ErrorDataResult<Product>(MessageConstants.ProductNotFound);
         return new SuccessDataResult<Product>(product);
     }
 
-    public async Task<IDataResult<IReadOnlyCollection<Product>>> GetAllAsync()
+    public async Task<IDataResult<IReadOnlyCollection<Product>>> GetAllAsync(params Expression<Func<Product, object>>[]? includeParams)
     {
-        var productsCollection = await _productDal.GetAllAsync();
+        var productsCollection = await _productDal.GetAllAsync(null, includeParams:includeParams);
         if (productsCollection.Count < 1)
             return new ErrorDataResult<IReadOnlyCollection<Product>>(MessageConstants.NoRecordsFound);
         return new SuccessDataResult<IReadOnlyCollection<Product>>(productsCollection);

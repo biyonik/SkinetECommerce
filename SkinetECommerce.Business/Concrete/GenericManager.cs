@@ -1,6 +1,6 @@
-﻿using SkinetECommerce.Business.Abstract;
+﻿using System.Linq.Expressions;
+using SkinetECommerce.Business.Abstract;
 using SkinetECommerce.Business.Constants;
-using SkinetECommerce.Core.DataAccess.Abstract;
 using SkinetECommerce.Core.DataAccess.Concrete;
 using SkinetECommerce.Core.Entities.Abstact;
 using SkinetECommerce.Core.Utilities.ResultInfrastructure.Abstract;
@@ -15,16 +15,16 @@ where TEntity: class, IEntity, new()
 {
     private readonly EfEntityRepositoryBase<TEntity, SkinetDbContext> _dal = new();
 
-    public async Task<IDataResult<TEntity>> GetByIdAsync(Guid Id)
+    public async Task<IDataResult<TEntity>> GetByIdAsync(Guid Id, params Expression<Func<TEntity, object>>[]? includeParams)
     {
-        var entity = await _dal.GetAsync(x => x.Id == Id);
+        var entity = await _dal.GetAsync(x => x.Id == Id, includeParams);
         if (entity == null) return new ErrorDataResult<TEntity>(MessageConstants.RecordNotFound);
         return new SuccessDataResult<TEntity>(entity);
     }
 
-    public async Task<IDataResult<IReadOnlyCollection<TEntity>>> GetAllAsync()
+    public async Task<IDataResult<IReadOnlyCollection<TEntity>>> GetAllAsync(params Expression<Func<TEntity, object>>[]? includeParams)
     {
-        var entitiesCollection = await _dal.GetAllAsync();
+        var entitiesCollection = await _dal.GetAllAsync(includeParams:includeParams);
         if (entitiesCollection.Count < 1)
             return new ErrorDataResult<IReadOnlyCollection<TEntity>>(MessageConstants.NoRecordsFound);
         return new SuccessDataResult<IReadOnlyCollection<TEntity>>(entitiesCollection);

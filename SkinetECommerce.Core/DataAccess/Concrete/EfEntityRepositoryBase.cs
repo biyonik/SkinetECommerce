@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SkinetECommerce.Core.DataAccess.Abstract;
 using SkinetECommerce.Core.Entities.Abstact;
+using SkinetECommerce.Core.Extension;
 
 namespace SkinetECommerce.Core.DataAccess.Concrete;
 
@@ -10,19 +11,19 @@ public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEnti
     where TEntity : class, IEntity, new()
     where TContext : DbContext, new()
 {
-    public TEntity? Get(Expression<Func<TEntity, bool>> filter)
+    public TEntity? Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[]? includeParams)
     {
         using var context = new TContext();
-        var entity = context.Set<TEntity>().SingleOrDefault(filter);
+        var entity = context.Set<TEntity>().IncludeMultiple(includeParams).SingleOrDefault(filter);
         return entity;
     }
 
-    public IReadOnlyCollection<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)
+    public IReadOnlyCollection<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null, params Expression<Func<TEntity, object>>[]? includeParams)
     {
         using var context = new TContext();
         return filter == null
-            ? context.Set<TEntity>().ToList()
-            : context.Set<TEntity>().Where(filter).ToList();
+            ? context.Set<TEntity>().IncludeMultiple(includeParams).ToList()
+            : context.Set<TEntity>().IncludeMultiple(includeParams).Where(filter).ToList();
     }
 
     public bool Add(TEntity entity)
@@ -49,19 +50,19 @@ public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEnti
         return result > 0;
     }
 
-    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter)
+    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[]? includeParams)
     {
         await using var context = new TContext();
-        var entity = await context.Set<TEntity>().SingleOrDefaultAsync(filter);
+        var entity = await context.Set<TEntity>().IncludeMultiple(includeParams).SingleOrDefaultAsync(filter);
         return entity;
     }
 
-    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null)
+    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null, params Expression<Func<TEntity, object>>[]? includeParams)
     {
         await using var context = new TContext();
         return filter == null
-            ? await context.Set<TEntity>().ToListAsync()
-            : await context.Set<TEntity>().Where(filter).ToListAsync();
+            ? await context.Set<TEntity>().IncludeMultiple(includeParams).ToListAsync()
+            : await context.Set<TEntity>().IncludeMultiple(includeParams).Where(filter).ToListAsync();
     }
 
     public async Task<bool> AddAsync(TEntity entity)

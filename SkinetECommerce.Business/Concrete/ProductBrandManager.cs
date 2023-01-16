@@ -1,4 +1,5 @@
-﻿using SkinetECommerce.Business.Abstract;
+﻿using System.Linq.Expressions;
+using SkinetECommerce.Business.Abstract;
 using SkinetECommerce.Business.Constants;
 using SkinetECommerce.Core.Entities.Concrete;
 using SkinetECommerce.Core.Utilities.ResultInfrastructure.Abstract;
@@ -16,12 +17,14 @@ public class ProductBrandManager: IProductBrandService
         _productBrandDal = productBrandDal;
     }
     
-    public Task<IDataResult<ProductBrand>> GetByIdAsync(Guid Id)
+    public async Task<IDataResult<ProductBrand>> GetByIdAsync(Guid Id, params Expression<Func<ProductBrand, object>>[]? includeParams)
     {
-        throw new NotImplementedException();
+        var productBrand = await _productBrandDal.GetAsync(x => x.Id == Id);
+        if (productBrand == null) return new ErrorDataResult<ProductBrand>(MessageConstants.RecordNotFound);
+        return new SuccessDataResult<ProductBrand>(productBrand);
     }
 
-    public async Task<IDataResult<IReadOnlyCollection<ProductBrand>>> GetAllAsync()
+    public async Task<IDataResult<IReadOnlyCollection<ProductBrand>>> GetAllAsync(params Expression<Func<ProductBrand, object>>[]? includeParams)
     {
         var productBrandsCollection = await _productBrandDal.GetAllAsync();
         if (productBrandsCollection.Count < 1)
