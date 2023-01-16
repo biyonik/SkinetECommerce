@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using SkinetECommerce.Business.DependencyResolvers.Autofac;
 using SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
 
@@ -30,5 +31,23 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+async Task DoCreateDatabaseFromMigration()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<SkinetDbContext>();
+        await context.Database.MigrateAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occured during migration");
+    }
+}
+
+await DoCreateDatabaseFromMigration();
 
 app.Run();
