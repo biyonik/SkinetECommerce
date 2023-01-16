@@ -10,7 +10,7 @@ public class SkinetContextSeeder : ISeeder<SkinetDbContext>
     {
         try
         {
-            var brandsData = await File.ReadAllTextAsync("../../SeedData/brands.json");
+            var brandsData = await File.ReadAllTextAsync(Path.Combine(Directory.GetCurrentDirectory(), "../SkinetECommerce.DataAccess/SeedData", "brands.json"));
             
             if (!context.ProductBrands.Any())
             {
@@ -26,7 +26,7 @@ public class SkinetContextSeeder : ISeeder<SkinetDbContext>
 
             if (!context.ProductTypes.Any())
             {
-                var typesData = await File.ReadAllTextAsync("../../SeedData/types.json");
+                var typesData = await File.ReadAllTextAsync(Path.Combine(Directory.GetCurrentDirectory(), "../SkinetECommerce.DataAccess/SeedData", "types.json"));
                 var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
 
                 foreach (var type in types)
@@ -37,18 +37,18 @@ public class SkinetContextSeeder : ISeeder<SkinetDbContext>
                 await context.SaveChangesAsync();
             }
 
-            if (!context.Products.Any())
-            {
-                var productsData = await File.ReadAllTextAsync("../../SeedData/products.json");
-                var products = JsonSerializer.Deserialize<List<Product>>(productsData);
-
-                foreach (var product in products)
-                {
-                    context.Products.Add(product);
-                }
-
-                await context.SaveChangesAsync();
-            }
+            // if (!context.Products.Any())
+            // {
+            //     var productsData = await File.ReadAllTextAsync(Path.Combine(Directory.GetCurrentDirectory(), "../SkinetECommerce.DataAccess/SeedData", "products.json"));
+            //     var products = JsonSerializer.Deserialize<List<Product>>(productsData);
+            //
+            //     foreach (var product in products)
+            //     {
+            //         context.Products.Add(product);
+            //     }
+            //
+            //     await context.SaveChangesAsync();
+            // }
         }
         catch (Exception ex)
         {

@@ -13,10 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SkinetDbContext>();
-builder.Services.AddAutofac((ContainerBuilder containerBuilder) =>
-{
-    containerBuilder.RegisterModule(new AutofacDependencyResolverModule());
-});
+// Autofac Options
+builder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacDependencyResolverModule());
+    });
+
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var app = builder.Build();
 
@@ -42,7 +46,8 @@ async Task DoCreateDatabaseFromMigration()
     {
         var context = services.GetRequiredService<SkinetDbContext>();
         await context.Database.MigrateAsync();
-        await new SkinetContextSeeder().SeedAsync(context, loggerFactory);
+        var seeder = new SkinetContextSeeder();
+        await seeder.SeedAsync(context, loggerFactory);
     }
     catch (Exception ex)
     {

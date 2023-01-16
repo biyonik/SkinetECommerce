@@ -1,19 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SkinetECommerce.Business.Abstract;
 
 namespace SkinetECommerce.WebAPI.Controllers;
 
 public class ProductsController : BaseController
 {
+    private readonly IProductService _productService;
+    public ProductsController(IProductService productService)
+    {
+        _productService = productService;
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return Ok();
+        var products = await _productService.GetAllAsync();
+        return Ok(products);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        return Ok();
+        var productResult = await _productService.GetByIdAsync(id);
+        return Ok(productResult);
     }
 
     [HttpPost]
