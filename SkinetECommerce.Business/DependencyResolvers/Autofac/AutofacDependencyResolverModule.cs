@@ -1,9 +1,11 @@
 ﻿using Autofac;
+using AutoMapper;
 using SkinetECommerce.Business.Abstract;
 using SkinetECommerce.Business.Concrete;
 using SkinetECommerce.Core.DataAccess.Abstract;
 using SkinetECommerce.Core.DataAccess.Concrete;
 using SkinetECommerce.Core.Entities.Concrete;
+using SkinetECommerce.Core.Helpers;
 using SkinetECommerce.DataAccess.Abstract;
 using SkinetECommerce.DataAccess.Concrete.EntityFramework.Repositories;
 
@@ -29,6 +31,6 @@ public class AutofacDependencyResolverModule: Module
         builder.RegisterType<ProductManager>().As<IProductService>();
         builder.RegisterType<ProductTypeManager>().As<IProductTypeService>();
         builder.RegisterType<ProductBrandManager>().As<IProductBrandService>();
-
+        
     }
 }

@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SkinetECommerce.Business.DependencyResolvers.Autofac;
+using SkinetECommerce.Core.Helpers;
 using SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
 using SkinetECommerce.DataAccess.Concrete.Utils;
 
@@ -13,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SkinetDbContext>();
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Autofac Options
 builder.Host
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
