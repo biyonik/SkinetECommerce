@@ -43,7 +43,7 @@ public class ProductsController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add()
+    public async Task<IActionResult> Add(ProductAddDto productAddDto)
     {
         return Ok();
     }

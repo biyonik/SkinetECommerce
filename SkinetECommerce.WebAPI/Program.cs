@@ -2,9 +2,9 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SkinetECommerce.Business.DependencyResolvers.Autofac;
-using SkinetECommerce.Core.Helpers;
 using SkinetECommerce.DataAccess.Concrete.EntityFramework.Contexts;
 using SkinetECommerce.DataAccess.Concrete.Utils;
+using SkinetECommerce.DataAccess.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -12,5 +12,8 @@ public class MappingProfiles: Profile
             .ForMember(dest => dest.ProductBrandName, ex => ex.MapFrom(e => e.ProductBrand.Name))
             .ForMember(dest => dest.ProductTypeName, ex => ex.MapFrom(e => e.ProductType.Name))
             .ReverseMap();
+
+        CreateMap<Product, ProductAddDto>()
+            .ForMember(d => d.ProductBrandName, op => op.)
     }
 }
